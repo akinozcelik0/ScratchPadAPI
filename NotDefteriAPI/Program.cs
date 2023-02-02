@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NotDefteriAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddCors();
 // Add services to the container.
 var cs = builder.Configuration.GetConnectionString("UygulamaDbContext");
 builder.Services.AddDbContext<UygulamaDbContext>(o => o.UseSqlServer(cs));
@@ -24,6 +24,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(p => p.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
 app.UseAuthorization();
 
 app.MapControllers();
